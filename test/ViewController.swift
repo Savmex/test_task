@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 
+//для многопоточности использовал OperationQueue т.к там можно отменять выполнение после его начала
 
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     //MARK: - variables
@@ -91,47 +92,55 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         //012395726208297425069:_np83nffj40 - "search engine"
         //
         let urlAdress = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBsnPhX_EwlimkglxKpjJe99lHBydcHuDs&cx=012395726208297425069:_np83nffj40&q=\(text)"
-        let url = URL(string: urlAdress)
-        let request = URLRequest(url: url!)
-        URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-            if let data = data{ //проверяем пришли ли данные
-                let operation = {       //создаем operation для асинхронного выполнения в operationQueue
-                        OperationQueue.main.addOperation {      //т.к запрос завершился успешно очищаем collection view
-                            self.searchResults.removeAll()
-                            self.collectionView.reloadData()
-                            self.progressView?.setProgress(0.4, animated: true)
-                        }
-                        do{
-                            //парсинг данных json
-                            let json = try(JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()))
-                            let loadedData = json as? Dictionary<String, Any>
-                            let items = loadedData!["items"] as? [Dictionary<String,Any>]
-                            for item in items!{
-                                let newItem = Item(url: item["formattedUrl"] as! String, title: item["title"] as! String)
-                                self.searchResults.append(newItem)
-                                OperationQueue.main.addOperation {      //все действия с UI выполняются в main потоке
-                                    let progress = (self.progressView?.progress)! + Float(0.6)/Float(items!.count)
-                                    self.progressView?.setProgress(progress, animated: true)
-                                    self.collectionView.reloadData()
-                                }
+        if let url = URL(string: urlAdress){
+            let request = URLRequest(url: url)
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+                if let data = data{ //проверяем пришли ли данные
+                    let operation = {       //создаем operation для асинхронного выполнения в operationQueue
+                            OperationQueue.main.addOperation {      //т.к запрос завершился успешно очищаем collection view
+                                self.searchResults.removeAll()
+                                self.collectionView.reloadData()
+                                self.progressView?.setProgress(0.4, animated: true)
                             }
-                        }catch let error{
-                            print(error)
-                            return
-                        }
+                            do{
+                                //парсинг данных json
+                                let json = try(JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()))
+                                let loadedData = json as? Dictionary<String, Any>
+                                let items = loadedData!["items"] as? [Dictionary<String,Any>]
+                                for item in items!{
+                                    let newItem = Item(url: item["formattedUrl"] as! String, title: item["title"] as! String)
+                                    self.searchResults.append(newItem)
+                                    OperationQueue.main.addOperation {      //все действия с UI выполняются в main потоке
+                                        self.progressView?.setProgress(0.7, animated: true)
+                                        self.collectionView.reloadData()
+                                    }
+                                }
+                            }catch let error{
+                                print(error)
+                                return
+                            }
+                    }
+                    self.operationQueue.addOperation(operation) //отправляем operation в асинхронное выполнение
+                    self.operationQueue.waitUntilAllOperationsAreFinished()
+                    OperationQueue.main.addOperation {
+                        self.progressView?.setProgress(1, animated: true)
+                        self.progressView?.isHidden = true
+                        self.changeButtonState()
+                    }
                 }
-                self.operationQueue.addOperation(operation) //отправляем operation в асинхронное выполнение
-                OperationQueue.main.addOperation {
-                    self.progressView?.setProgress(1, animated: true)
-                    self.progressView?.isHidden = true
-                    self.changeButtonState()
+                else{
+                    self.showToast(message: "No results")
                 }
-            }
-            else{
-                //toast message
-            }
-        }).resume()
-        print("konec")
+            }).resume()
+        }
+        else{
+            progressView!.isHidden = true
+            showToast(message: "Error")
+            changeButtonState()
+            searchResults.removeAll()
+            collectionView.reloadData()
+            return
+        }
     }
     
     func changeButtonState(){
@@ -150,19 +159,28 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell?.searchButton.setTitle("Search Google", for: .normal)
         }
     }
+    
+    //MARK: - other methods
+    func hideKeyboard(){
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = collectionView.cellForItem(at: indexPath) as? SearchLabelCell
+        cell?.searchLabel.resignFirstResponder()
+    }
+    
     //MARK: - selectors
     @objc func searchButtonPressed(){
         if let text = getLabelText(){
             if text != ""{
                 changeButtonState()
+                hideKeyboard()
                 searchRequest(text: text)
                 progressView?.isHidden = false
-                progressView?.setProgress(0.2, animated: true)
+                
             }
             else{
                 searchResults.removeAll()
                 collectionView.reloadData()
-                //toast message
+                showToast(message: "Enter text")
             }
         }
         else{
