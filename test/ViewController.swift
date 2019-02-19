@@ -9,27 +9,27 @@
 import UIKit
 import Foundation
 
-//для многопоточности использовал OperationQueue т.к там можно отменять выполнение после его начала
-
-class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     //MARK: - variables
     var searchResults = [Item]()
     var operationQueue = OperationQueue()
     var progressView: UIProgressView?
     
+    var tableView: UITableView!
+    
     //MARK: - view controller methods
     override func viewDidLoad(){
         super.viewDidLoad()
-        collectionView.backgroundColor = UIColor.white
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(SearchLabelCell.self, forCellWithReuseIdentifier: "searchLabel")
-        collectionView.register(SearchButtonCell.self, forCellWithReuseIdentifier: "searchButton")
-        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: "searchResult")
+        setupTableView()
     }
     
-    //MARK: - collection view methods
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    //MARK: - tableView methods
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 1
@@ -40,45 +40,39 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return CGSize(width: collectionView.frame.width, height: 40)
+            return 40
         case 1:
-            return CGSize(width: collectionView.frame.width, height: 42)
+            return 42
         default:
-            return CGSize(width: collectionView.frame.width, height: 60)
+            return 60
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchLabel", for: indexPath) as! SearchLabelCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "searchLabel", for: indexPath) as! SearchLabelCell
             cell.targetForReturnButton = self
             return cell
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:
-                "searchButton", for: indexPath) as! SearchButtonCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "searchButton", for: indexPath) as! SearchButtonCell
             cell.targetForButton = self
             progressView = cell.progressView
             return cell
-            
         default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchResult", for: indexPath) as! SearchResultCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "searchResult", for: indexPath) as! SearchResultCell
             cell.item = searchResults[indexPath.item]
             return cell
         }
-        
     }
+    
     //MARK: - search methods
     func getLabelText()-> String?{
         let indexPath = IndexPath(row: 0, section: 0)
-        let cell = collectionView.cellForItem(at: indexPath ) as! SearchLabelCell
+        let cell = tableView.cellForRow(at: indexPath ) as! SearchLabelCell
         if let text = cell.searchLabel.text{
             return text
         }
@@ -99,7 +93,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                     let operation = {       //создаем operation для асинхронного выполнения в operationQueue
                             OperationQueue.main.addOperation {      //т.к запрос завершился успешно очищаем collection view
                                 self.searchResults.removeAll()
-                                self.collectionView.reloadData()
+                                self.tableView.reloadData()
                                 self.progressView?.setProgress(0.4, animated: true)
                             }
                             do{
@@ -112,7 +106,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                                     self.searchResults.append(newItem)
                                     OperationQueue.main.addOperation {      //все действия с UI выполняются в main потоке
                                         self.progressView?.setProgress(0.7, animated: true)
-                                        self.collectionView.reloadData()
+                                        self.tableView.reloadData()
                                     }
                                 }
                             }catch let error{
@@ -138,14 +132,14 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             showToast(message: "Error")
             changeButtonState()
             searchResults.removeAll()
-            collectionView.reloadData()
+            tableView.reloadData()
             return
         }
     }
     
     func changeButtonState(){
         let indexPath = IndexPath(row: 0, section: 1)
-        let cell = collectionView.cellForItem(at: indexPath) as? SearchButtonCell
+        let cell = tableView.cellForRow(at: indexPath) as? SearchButtonCell
         if cell?.searchButton.backgroundColor == UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1){
             cell?.searchButton.backgroundColor = UIColor.red.withAlphaComponent(0.8)
             cell?.searchButton.setTitle("Stop", for: .normal)
@@ -160,10 +154,22 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
+    //MARK: - setup
+    func setupTableView(){
+        tableView = UITableView(frame: view.bounds)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.register(SearchLabelCell.self, forCellReuseIdentifier: "searchLabel")
+        tableView.register(SearchButtonCell.self, forCellReuseIdentifier: "searchButton")
+        tableView.register(SearchResultCell.self, forCellReuseIdentifier: "searchResult")
+        view.addSubview(tableView)
+    }
+    
     //MARK: - other methods
     func hideKeyboard(){
         let indexPath = IndexPath(row: 0, section: 0)
-        let cell = collectionView.cellForItem(at: indexPath) as? SearchLabelCell
+        let cell = tableView.cellForRow(at: indexPath) as? SearchLabelCell
         cell?.searchLabel.resignFirstResponder()
     }
     
@@ -179,7 +185,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
             else{
                 searchResults.removeAll()
-                collectionView.reloadData()
+                tableView.reloadData()
                 showToast(message: "Enter text")
             }
         }
@@ -188,3 +194,5 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
 }
+
+

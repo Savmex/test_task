@@ -15,8 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let layout = UICollectionViewFlowLayout()
-        let vc = ViewController(collectionViewLayout: layout)
+        let vc = ViewController()
         self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
         return true

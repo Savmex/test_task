@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class SearchLabelCell: UICollectionViewCell, UITextFieldDelegate{
+class SearchLabelCell: UITableViewCell, UITextFieldDelegate{
     
     //MARK: - variables
     var targetForReturnButton: ViewController?
@@ -19,10 +19,11 @@ class SearchLabelCell: UICollectionViewCell, UITextFieldDelegate{
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()
     }
+
     let topLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
@@ -60,7 +61,7 @@ class SearchLabelCell: UICollectionViewCell, UITextFieldDelegate{
     
 }
 
-class SearchButtonCell: UICollectionViewCell{
+class SearchButtonCell: UITableViewCell{
     //MARK: - variables
     var targetForButton: ViewController?
     
@@ -85,8 +86,8 @@ class SearchButtonCell: UICollectionViewCell{
     }()
     
     //MARK: - init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()
     }
     
@@ -108,7 +109,7 @@ class SearchButtonCell: UICollectionViewCell{
     }
 }
 
-class SearchResultCell: UICollectionViewCell{
+class SearchResultCell: UITableViewCell{
     //MARK: - variables
     var item: Item?{
         didSet{
@@ -131,8 +132,8 @@ class SearchResultCell: UICollectionViewCell{
     }()
     
     //MARK: - init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()
     }
     
