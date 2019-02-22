@@ -1,13 +1,5 @@
-//
-//  Helper.swift
-//  test
-//
-//  Created by Savik on 2/4/19.
-//  Copyright © 2019 Macbook. All rights reserved.
-//
-
-
 import UIKit
+
 extension UIView{
     func addConstraintWithFormat(format: String, views: UIView...){
         var viewsDictionary = [String : UIView]()
@@ -32,7 +24,6 @@ struct Item{
 extension ViewController {
     
     func showToast(message : String) {
-        
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
@@ -48,4 +39,6 @@ extension ViewController {
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
         })
-    } }
+    }
+    
+}
