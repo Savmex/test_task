@@ -1,3 +1,3 @@
-Наименование: "Qulix - Test Task - iOS_Android_Search" (Goolge Search)"
+Наименование: "Qulix - Test Task - iOS_Android_Search" (Goolge Search)"(v1.0.1)
 Краткое описание: однооконное приложение, позволяющее проводить поиск в google по указанному критерию.
 Системные требования: IOS.
