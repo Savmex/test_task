@@ -168,7 +168,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 for item in items!{
                                     let newItem = Item(url: item["formattedUrl"] as! String, title: item["title"] as! String)
                                     self.searchResults.append(newItem)
-                                    OperationQueue.main.addOperation {      //все действия с UI выполняются в main потоке
+                                    OperationQueue.main.addOperation {
                                         self.progressView.setProgress(0.7, animated: true)
                                         self.tableView.reloadData()
                                     }
@@ -178,7 +178,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 return
                             }
                     }
-                    self.operationQueue.addOperation(operation) //отправляем operation в асинхронное выполнение
+                    self.operationQueue.addOperation(operation) 
                     self.operationQueue.waitUntilAllOperationsAreFinished()
                     OperationQueue.main.addOperation {
                         self.progressView.setProgress(1, animated: true)
