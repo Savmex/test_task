@@ -13,6 +13,7 @@
 		FA80F16922085F680039D6CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA80F16722085F680039D6CD /* LaunchScreen.storyboard */; };
 		FA80F171220862170039D6CD /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA80F170220862170039D6CD /* Helper.swift */; };
 		FA80F1732208A9280039D6CD /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA80F1722208A9280039D6CD /* Cells.swift */; };
+		FACC020C2236CF6C0094736F /* DataSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACC020B2236CF6C0094736F /* DataSearcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		FA80F16A22085F680039D6CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA80F170220862170039D6CD /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		FA80F1722208A9280039D6CD /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
+		FACC020B2236CF6C0094736F /* DataSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSearcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				FA80F15E22085F670039D6CD /* AppDelegate.swift */,
 				FA80F16022085F670039D6CD /* ViewController.swift */,
+				FACC020B2236CF6C0094736F /* DataSearcher.swift */,
 				FA80F1722208A9280039D6CD /* Cells.swift */,
 				FA80F170220862170039D6CD /* Helper.swift */,
 				FA80F16522085F680039D6CD /* Assets.xcassets */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACC020C2236CF6C0094736F /* DataSearcher.swift in Sources */,
 				FA80F16122085F670039D6CD /* ViewController.swift in Sources */,
 				FA80F1732208A9280039D6CD /* Cells.swift in Sources */,
 				FA80F15F22085F670039D6CD /* AppDelegate.swift in Sources */,
