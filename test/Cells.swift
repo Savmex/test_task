@@ -1,6 +1,13 @@
 import UIKit
 
+/*
+    class SearchResultCell - класс для кастомной ячейки для tableView
+    item является public т.к используется методом  tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell класса ViewController для установления значения ячейки
+*/
+
 class SearchResultCell: UITableViewCell{
+    
+    private let heightsAndOffsets = HeightsAndOffsetsForSearchResultCell()
     
     var item: SearchItem?{
         didSet{
@@ -9,18 +16,21 @@ class SearchResultCell: UITableViewCell{
         }
     }
     
-    let labelForTitle: UILabel = {
+    private let labelForTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16)
+        let fontSize = FontSizesForSearchResultCell.sizes.fontSizeForTitleLabel
+        label.font = UIFont.systemFont(ofSize: fontSize)
+        label.textColor = ColorsForSearchResultCell.colors.colorForLabelForTitle
         return label
     }()
     
-    let labelForLink: UILabel = {
+    private let labelForLink: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
+        let fontSize = FontSizesForSearchResultCell.sizes.fontSizeForLinkLabel
+        label.font = UIFont.systemFont(ofSize: fontSize)
+        label.textColor = ColorsForSearchResultCell.colors.colorForLabelForLink
         return label
     }()
 
@@ -33,24 +43,24 @@ class SearchResultCell: UITableViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUp(){
+    private func setUp(){
         addSubview(labelForTitle)
         addSubview(labelForLink)
         
-        let topOffsetForTitleLabel = CGFloat(2)
+        let topOffsetForTitleLabel = heightsAndOffsets.topOffsetForTitleLabel
         labelForTitle.topAnchor.constraint(equalTo: topAnchor, constant: topOffsetForTitleLabel).isActive = true
-        let horizontalOffsetForTitleLabel = CGFloat(2)
+        let horizontalOffsetForTitleLabel = heightsAndOffsets.horizontalOffsetForTitleLabel
         labelForTitle.leftAnchor.constraint(equalTo: leftAnchor, constant: horizontalOffsetForTitleLabel).isActive = true
         labelForTitle.rightAnchor.constraint(equalTo: rightAnchor, constant: -horizontalOffsetForTitleLabel).isActive = true
-        let heightForTitleLabel = CGFloat(30)
+        let heightForTitleLabel = heightsAndOffsets.heightForTitleLabel
         labelForTitle.heightAnchor.constraint(equalToConstant: heightForTitleLabel).isActive = true
         
-        let topOffsetForLinkLabel = CGFloat(2)
+        let topOffsetForLinkLabel = heightsAndOffsets.topOffsetForLinkLabel
         labelForLink.topAnchor.constraint(equalTo: labelForTitle.bottomAnchor, constant: topOffsetForLinkLabel).isActive = true
-        let horizontalOffsetForLinkLabel = CGFloat(3)
+        let horizontalOffsetForLinkLabel = heightsAndOffsets.horizontalOffsetForLinkLabel
         labelForLink.leftAnchor.constraint(equalTo: leftAnchor, constant: horizontalOffsetForLinkLabel).isActive = true
         labelForLink.rightAnchor.constraint(equalTo: rightAnchor, constant: -horizontalOffsetForLinkLabel).isActive = true
-        let heightForLinkLabel = CGFloat(24)
+        let heightForLinkLabel = heightsAndOffsets.heightForLinkLabel
         labelForLink.heightAnchor.constraint(equalToConstant: heightForLinkLabel).isActive = true
     }
 }

@@ -1,9 +1,17 @@
 import Foundation
 import UIKit
+
+/*
+    class DataSearcher предназначен для получения и парсинга данных по запросу с заданным критерием
+    методы searchRequest & cancelAllOperations являются public т.к используются вне класса классом ViewController
+ */
 class DataSearcher{
     
+    private let searchURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBsnPhX_EwlimkglxKpjJe99lHBydcHuDs&cx=012395726208297425069:_np83nffj40&q="
+    private let keysForDictionaries = KeysForFetchedDataDictionaries()
+    
     func searchRequest(text: String)->[SearchItem]?{
-        let urlAdress = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBsnPhX_EwlimkglxKpjJe99lHBydcHuDs&cx=012395726208297425069:_np83nffj40&q=\(text)"
+        let urlAdress = searchURL + text
         let requestUrl = URL(string: urlAdress)
         if let url = requestUrl{
             do{
@@ -28,9 +36,9 @@ class DataSearcher{
         do{
             let json = try(JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()))
             let loadedData = json as? Dictionary<String, Any>
-            if let items = loadedData!["items"] as? [Dictionary<String,Any>]{
+            if let items = loadedData![keysForDictionaries.keyForItems] as? [Dictionary<String,Any>]{
                 for item in items{
-                    let newItem = SearchItem(url: item["formattedUrl"] as! String, title: item["title"] as! String)
+                    let newItem = SearchItem(url: item[keysForDictionaries.keyForURL] as! String, title: item[keysForDictionaries.keyForTitle] as! String)
                     searchResults.append(newItem)
                 }
             }
@@ -39,8 +47,8 @@ class DataSearcher{
             }
         
         }
-        catch let error{
-            fatalError("error convering data: \(error)")
+        catch {
+            return nil
         }
         return searchResults
     }
