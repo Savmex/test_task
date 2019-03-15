@@ -7,6 +7,9 @@ import Foundation
  */
 
 protocol ViewControllerProtocol{
+    var searchLabel: UITextField{get set}
+    var searchButton: UIButton {get set}
+    var tableView: UITableView!{get set}
     var searchResults: [SearchItem] {get set}
     func setUpViews()
 }
@@ -17,7 +20,8 @@ protocol ViewControllerProtocol{
  член класса searchResults является public т.к он соответствует протоколу ViewControllerProtocol
  методы tableView являются public т.к они соответствуют протоколам UITableViewDelegate и UITableViewDataSource
  метод textFieldShouldReturn является public т.к соответствует протоколу UITextFieldDelegate
- метод setUpViews является public т.к соответствует протоколу ViewControllerProtocol
+ метод setUpViews является public т.к он унаследован от интерфейса ViewControllerProtocol
+ члены tableView,progressView,searchButton,searchLabel являются public т.к они унаследованы от интерфейса ViewControllerProtocol
 */
 
 class ViewController: UIViewController, ViewControllerProtocol, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
@@ -28,9 +32,9 @@ class ViewController: UIViewController, ViewControllerProtocol, UITableViewDeleg
     private let heightsAndOffsets = HeightsAndOffsetsForVCElements()
     private let cellIdentifier = "searchResult"
     
-    private var tableView: UITableView!
+    var tableView: UITableView!
     
-    private var progressView: UIProgressView = {
+    var progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.trackTintColor = UIColor.white
@@ -59,7 +63,7 @@ class ViewController: UIViewController, ViewControllerProtocol, UITableViewDeleg
         return view
     }()
     
-    private var searchButton: UIButton = {
+    var searchButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(SearchButtonStatesTitles.titles.titleForNormalState, for: .normal)
@@ -69,7 +73,7 @@ class ViewController: UIViewController, ViewControllerProtocol, UITableViewDeleg
         return button
     }()
     
-    private var searchLabel: UITextField = {
+    var searchLabel: UITextField = {
         let label = UITextField()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.placeholder = "Search..."
