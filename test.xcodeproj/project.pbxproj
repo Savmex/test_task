@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4B7957922427094000081CB /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B7957822427094000081CB /* ErrorMessages.swift */; };
+		C4B7957C22427294000081CB /* KeysForFetchedDataDictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B7957B22427294000081CB /* KeysForFetchedDataDictionaries.swift */; };
+		C4B7957E22427397000081CB /* ColorsForViewControllerElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B7957D22427397000081CB /* ColorsForViewControllerElements.swift */; };
+		C4B79580224273C6000081CB /* SearchButtonStatesTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B7957F224273C6000081CB /* SearchButtonStatesTitles.swift */; };
+		C4B79582224273EA000081CB /* HeightsAndOffsetsForVCElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B79581224273EA000081CB /* HeightsAndOffsetsForVCElements.swift */; };
+		C4B7958422427425000081CB /* ParametersForSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B7958322427425000081CB /* ParametersForSearchResultCell.swift */; };
+		C4B7958C2242794C000081CB /* SearchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B7958B2242794C000081CB /* SearchLabelView.swift */; };
+		C4B7958E22428AD5000081CB /* SearchButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B7958D22428AD4000081CB /* SearchButtonView.swift */; };
+		C4B7959022429A9E000081CB /* SearchProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B7958F22429A9E000081CB /* SearchProgressView.swift */; };
+		C4B795922242A10D000081CB /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B795912242A10D000081CB /* SearchTableView.swift */; };
+		C4B795942242B26F000081CB /* ToastMessageParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B795932242B26F000081CB /* ToastMessageParameters.swift */; };
 		FA80F15F22085F670039D6CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA80F15E22085F670039D6CD /* AppDelegate.swift */; };
 		FA80F16122085F670039D6CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA80F16022085F670039D6CD /* ViewController.swift */; };
 		FA80F16622085F680039D6CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA80F16522085F680039D6CD /* Assets.xcassets */; };
@@ -17,6 +28,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C4B7957822427094000081CB /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
+		C4B7957B22427294000081CB /* KeysForFetchedDataDictionaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysForFetchedDataDictionaries.swift; sourceTree = "<group>"; };
+		C4B7957D22427397000081CB /* ColorsForViewControllerElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsForViewControllerElements.swift; sourceTree = "<group>"; };
+		C4B7957F224273C6000081CB /* SearchButtonStatesTitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButtonStatesTitles.swift; sourceTree = "<group>"; };
+		C4B79581224273EA000081CB /* HeightsAndOffsetsForVCElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightsAndOffsetsForVCElements.swift; sourceTree = "<group>"; };
+		C4B7958322427425000081CB /* ParametersForSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersForSearchResultCell.swift; sourceTree = "<group>"; };
+		C4B7958B2242794C000081CB /* SearchLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLabelView.swift; sourceTree = "<group>"; };
+		C4B7958D22428AD4000081CB /* SearchButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButtonView.swift; sourceTree = "<group>"; };
+		C4B7958F22429A9E000081CB /* SearchProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProgressView.swift; sourceTree = "<group>"; };
+		C4B795912242A10D000081CB /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
+		C4B795932242B26F000081CB /* ToastMessageParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageParameters.swift; sourceTree = "<group>"; };
 		FA80F15B22085F670039D6CD /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA80F15E22085F670039D6CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA80F16022085F670039D6CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +61,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4B7958A22427644000081CB /* ViewsForViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C4B7958B2242794C000081CB /* SearchLabelView.swift */,
+				C4B7958D22428AD4000081CB /* SearchButtonView.swift */,
+				C4B7958F22429A9E000081CB /* SearchProgressView.swift */,
+				C4B795912242A10D000081CB /* SearchTableView.swift */,
+			);
+			name = ViewsForViewController;
+			sourceTree = "<group>";
+		};
 		FA80F15222085F670039D6CD = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +96,14 @@
 				FACC020B2236CF6C0094736F /* DataSearcher.swift */,
 				FA80F1722208A9280039D6CD /* Cells.swift */,
 				FA80F170220862170039D6CD /* Model.swift */,
+				C4B7958A22427644000081CB /* ViewsForViewController */,
+				C4B7957822427094000081CB /* ErrorMessages.swift */,
+				C4B7957B22427294000081CB /* KeysForFetchedDataDictionaries.swift */,
+				C4B7957D22427397000081CB /* ColorsForViewControllerElements.swift */,
+				C4B7957F224273C6000081CB /* SearchButtonStatesTitles.swift */,
+				C4B79581224273EA000081CB /* HeightsAndOffsetsForVCElements.swift */,
+				C4B7958322427425000081CB /* ParametersForSearchResultCell.swift */,
+				C4B795932242B26F000081CB /* ToastMessageParameters.swift */,
 				FA80F16522085F680039D6CD /* Assets.xcassets */,
 				FA80F16722085F680039D6CD /* LaunchScreen.storyboard */,
 				FA80F16A22085F680039D6CD /* Info.plist */,
@@ -142,7 +183,18 @@
 			files = (
 				FACC020C2236CF6C0094736F /* DataSearcher.swift in Sources */,
 				FA80F16122085F670039D6CD /* ViewController.swift in Sources */,
+				C4B7957922427094000081CB /* ErrorMessages.swift in Sources */,
+				C4B79580224273C6000081CB /* SearchButtonStatesTitles.swift in Sources */,
+				C4B7957C22427294000081CB /* KeysForFetchedDataDictionaries.swift in Sources */,
+				C4B7958E22428AD5000081CB /* SearchButtonView.swift in Sources */,
+				C4B7958C2242794C000081CB /* SearchLabelView.swift in Sources */,
+				C4B7959022429A9E000081CB /* SearchProgressView.swift in Sources */,
+				C4B795922242A10D000081CB /* SearchTableView.swift in Sources */,
+				C4B7958422427425000081CB /* ParametersForSearchResultCell.swift in Sources */,
+				C4B79582224273EA000081CB /* HeightsAndOffsetsForVCElements.swift in Sources */,
 				FA80F1732208A9280039D6CD /* Cells.swift in Sources */,
+				C4B7957E22427397000081CB /* ColorsForViewControllerElements.swift in Sources */,
+				C4B795942242B26F000081CB /* ToastMessageParameters.swift in Sources */,
 				FA80F15F22085F670039D6CD /* AppDelegate.swift in Sources */,
 				FA80F171220862170039D6CD /* Model.swift in Sources */,
 			);
