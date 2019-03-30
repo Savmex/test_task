@@ -1,6 +1,9 @@
 import Foundation
 
-//класс для хранения текстов ошибок
+/**
+Keeps error messages.
+*/
+
 class ErrorMessages{
     let noTextInLabelError = "Enter text"
     let errorGettingData = "Error getting data"
