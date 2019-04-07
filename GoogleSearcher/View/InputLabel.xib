@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InputLabel" customModule="GoogleSearcher" customModuleProvider="target">
+            <connections>
+                <outlet property="textLabel" destination="kfe-6u-swd" id="tTe-Os-vQl"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" id="7Mz-oz-YCB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kfe-6u-swd">
+                    <rect key="frame" x="10" y="5" width="355" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="kfe-6u-swd" firstAttribute="centerX" secondItem="3sN-pZ-OMF" secondAttribute="centerX" id="31l-e4-mpu"/>
+                <constraint firstItem="3sN-pZ-OMF" firstAttribute="trailing" secondItem="kfe-6u-swd" secondAttribute="trailing" constant="10" id="WT5-pa-Vi9"/>
+                <constraint firstItem="kfe-6u-swd" firstAttribute="centerY" secondItem="3sN-pZ-OMF" secondAttribute="centerY" id="caD-CZ-V3n"/>
+                <constraint firstItem="kfe-6u-swd" firstAttribute="leading" secondItem="3sN-pZ-OMF" secondAttribute="leading" constant="10" id="oJF-83-2xW"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="3sN-pZ-OMF"/>
+            <point key="canvasLocation" x="-487.19999999999999" y="-273.4632683658171"/>
+        </view>
+    </objects>
+</document>
