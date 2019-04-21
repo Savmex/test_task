@@ -1,12 +1,9 @@
 import UIKit
 
 /**
- Coordinates all the interaction with button.
+Custom view including control that executes your custom code in response to user interactions.
  
-Main responsibilities:
- - Notifying about interactions with button.
- - Loading view from nib file.
- - Changing button state in responce to received notification.
+Loads it's view from corresponding nib file.
 */
 
 class ButtonView: UIView {
@@ -17,34 +14,22 @@ class ButtonView: UIView {
     private let colorForTappedButtonState = UIColor.red.withAlphaComponent(0.8)
     private let titleForNormalButtonState = "Google Search"
     private let titleForTappedButtonState = "Stop"
-
-    private let notificationNames = NotificationNames()
-    private let keyForActionDictionary = "action"
+    
+    weak var delegate: ButtonViewDelegate?
     
     @IBOutlet weak var button: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
-        createObservers()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
-        createObservers()
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    private func createObservers(){
-        let name = Notification.Name(notificationNames.changeStateNotificationName)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeButtonState), name: name, object: nil)
-    }
-    
-    private func loadFromNib() -> UIView{
+
+    private func loadFromNib() -> UIView {
         var view = UIView()
         if let viewFromNib = Bundle.main.loadNibNamed(nibName, owner: self, options: nil)?.first as? UIView{
             view = viewFromNib
@@ -52,7 +37,7 @@ class ButtonView: UIView {
         return view
     }
     
-    private func setUp(){
+    private func setUp() {
         let view = loadFromNib()
         view.frame = bounds
         button.layer.cornerRadius = cornerRadiusForButton
@@ -60,7 +45,11 @@ class ButtonView: UIView {
         addSubview(view)
     }
     
-    @objc private func changeButtonState(){
+    /**
+     Changes button state according to current state.
+    */
+    
+    func changeButtonState() {
         if button.backgroundColor == colorForNormalButtonState{
             button.backgroundColor = colorForTappedButtonState
             button.setTitle(titleForTappedButtonState, for: .normal)
@@ -72,21 +61,15 @@ class ButtonView: UIView {
     }
     
     /**
-     Sends notification to LabelView if button pressed.
+     Executes code when button tapped.
     */
     
     @IBAction func buttonAction(_ sender: Any) {
         if button.backgroundColor == colorForNormalButtonState{
-            changeButtonState()
-            let actionDict: [String: Action] = [keyForActionDictionary : .start]
-            let name = Notification.Name(notificationNames.actionNotificationName)
-            NotificationCenter.default.post(name: name, object: nil, userInfo: actionDict)
+            delegate?.ButtonPressed(button: self)
         }
         else{
-            changeButtonState()
-            let actionDict: [String: Action] = [keyForActionDictionary : .finish]
-            let name = Notification.Name(notificationNames.actionNotificationName)
-            NotificationCenter.default.post(name: name, object: nil, userInfo: actionDict)
+            delegate?.ButtonPressed(button: self)
         }
     }
 

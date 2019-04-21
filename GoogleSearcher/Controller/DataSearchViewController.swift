@@ -3,27 +3,31 @@ import Foundation
 import CoreData
 
 /**
- 
- The ViewController class defines the shared behavior that is common to all view controllers.
- Used to display main app window.
- 
- Main responsibilities:
-    - In response to dataSearcher, updating the contents of the views:
-        - labelView
-        - buttonView
-        - progressView
-        - tableView
-    - Responding to user interactions views.
-    - Сoordinating with:
-        - dataSearcher
-        - toastMessageView
-        - errorMessages
+Special view controller for managing group of custom views.
+
+Managing next custom views:
+  - InputField
+  - ButtonView
+  - LoadingProgressView
+  - ResultsTableView
  */
 
-class DataSearchViewController: UIViewController{
+class DataSearchViewController: UIViewController, DataHandlerDelegate, DataHandlerDataSource{
     
     private var toastMessageView: ToastMessageView!
-    private var notificationNames: NotificationNames!
+    
+    @IBOutlet weak var inputField: InputField!
+    
+    @IBOutlet weak var buttonView: ButtonView!
+    
+    @IBOutlet weak var loadingProgressView: LoadingProgressView!
+    
+    @IBOutlet weak var resultsTableView: ResultsTableView!
+    
+    private let progrValueForLoadingInit: Float = 0.3
+    private let progrValueForFinishLoading: Float = 1
+    
+    private let dataHandler = DataHandler()
     
     private let actionNotificationName = "actionNotification"
     
@@ -31,38 +35,50 @@ class DataSearchViewController: UIViewController{
     private let keyForMessage = "message"
     private let keyForController = "controller"
     
+    private let showToastNotificationName = "showToast"
+    private let notifyVCaboutToast = "notifyVC"
+    
     /**
      Handles additional initialization.
     */
+    
     override func viewDidLoad(){
         super.viewDidLoad()
+        inputField.delegate = dataHandler
+        buttonView.delegate = dataHandler
+        resultsTableView.delegate = dataHandler
+        resultsTableView.dataSource = dataHandler
+        dataHandler.delegate = self
+        dataHandler.dataSource = self
         initComponents()
-        createObservers()
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    func searchParemeter(_ forDataHandler: DataHandler) -> String? {
+        return inputField.returnText()
+    }
+    
+    func finishedLoading(_ dataHandler: DataHandler) {
+        buttonView.changeButtonState()
+        loadingProgressView.setProgress(value: progrValueForFinishLoading)
+        loadingProgressView.isProgressViewHidden(true)
+        resultsTableView.reloadData()
+    }
+    
+    func errorOccured(_ dataHandler: DataHandler, errorText: String) {
+        toastMessageView.showToast(with: errorText, for: self)
+    }
+    
+    func startedLoading(_ dataHandler: DataHandler) {
+        buttonView.changeButtonState()
+        loadingProgressView.setProgress(value: progrValueForLoadingInit)
+        loadingProgressView.isProgressViewHidden(false)
+        inputField.resignFirstResponder()
     }
     
     private func initComponents(){
-        notificationNames = NotificationNames()
         toastMessageView = ToastMessageView(frame: CGRect.null)
     }
     
-    private func createObservers(){
-        let name = Notification.Name(rawValue: notificationNames.notifyVCaboutToast)
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyToShowToast(notification:)), name: name, object: nil)
-    }
-    
-    @objc private func notifyToShowToast(notification: Notification){
-        let messageDictionary = notification.userInfo as! [String : String]
-        let message = messageDictionary[keyForMessage]!
-        var toastMessageDictionary = [String : Any]()
-        toastMessageDictionary[keyForMessage] = message
-        toastMessageDictionary[keyForController] = self
-        let name = Notification.Name(rawValue: notificationNames.showToastNotificationName)
-        NotificationCenter.default.post(name: name, object: nil, userInfo: toastMessageDictionary)
-    }
 }
 
 

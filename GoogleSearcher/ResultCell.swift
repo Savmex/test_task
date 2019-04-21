@@ -1,7 +1,7 @@
 import UIKit
 
 /**
- Custom cell for UITableView.
+ Custom cell for displaying FetchedItem. 
 */
 
 class ResultCell: UITableViewCell {

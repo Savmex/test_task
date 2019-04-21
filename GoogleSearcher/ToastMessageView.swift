@@ -2,19 +2,17 @@ import Foundation
 import UIKit
 
 /**
- Used to handle all the operations with toast messages.
+A custom view for displaying toast message.
  
- Main responsibilities:
- - Preparing toast message view for displaying.
- - Loading view from nib file.
- - Displaying toast message in responce to received notification.
+Loads it's view from corresponding nib file.
  */
 
 class ToastMessageView: UIView{
 
     /**
-     Label for toast message text.
+      for toast message text.
     */
+    
     @IBOutlet weak var textLabel: UILabel!
 
     private let delay = 0.1
@@ -25,7 +23,7 @@ class ToastMessageView: UIView{
     private let nibName = "ToastMessageView"
     private let offset = CGFloat(75)
     
-    private let notificationNames = NotificationNames()
+    private let showToastNotificationName = "showToast"
     
     private let keyForMessage = "message"
     private let keyForController = "controller"
@@ -33,24 +31,13 @@ class ToastMessageView: UIView{
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
-        createObservers()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
-        createObservers()
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    private func createObservers(){
-        let name = Notification.Name(notificationNames.showToastNotificationName)
-        NotificationCenter.default.addObserver(self, selector: #selector(showToast(notification:)), name: name, object: nil)
-    }
-
     private func loadFromNib() -> UIView{
         var view = UIView()
         if let viewFromNib = Bundle.main.loadNibNamed(nibName, owner: self, options: nil)?.first as? UIView{
@@ -64,15 +51,19 @@ class ToastMessageView: UIView{
         addSubview(view)
     }
     
-    @objc private func showToast(notification: Notification) {
-        let parametersDictionary = notification.userInfo as! [String : Any]
-        let message = parametersDictionary[keyForMessage] as! String
-        let controller = parametersDictionary[keyForController] as! UIViewController
-        center = CGPoint(x: controller.view.center.x - offset, y: controller.view.center.y)
+    /**
+     Displays toast message with recieved text on recieved ViewController.
+     - parameters:
+        - message: error message
+        - viewController: controller for displaying toast message
+    */
+    
+    func showToast(with message: String, for viewController: UIViewController) {
+        center = CGPoint(x: viewController.view.center.x - offset, y: viewController.view.center.y)
         self.alpha = toastLabelAlpha
         textLabel.text = message
         textLabel.clipsToBounds  = true
-        controller.view.addSubview(self)
+        viewController.view.addSubview(self)
         UIView.animate(withDuration: duration, delay: delay, options: options, animations: {
             self.alpha = self.toastLabelAlphaAtEndOfAnimation
         }, completion: {(isCompleted) in
