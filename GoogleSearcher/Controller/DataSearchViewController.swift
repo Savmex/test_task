@@ -29,15 +29,6 @@ class DataSearchViewController: UIViewController, DataHandlerDelegate, DataHandl
     
     private let dataHandler = DataHandler()
     
-    private let actionNotificationName = "actionNotification"
-    
-    private let keyForAction = "action"
-    private let keyForMessage = "message"
-    private let keyForController = "controller"
-    
-    private let showToastNotificationName = "showToast"
-    private let notifyVCaboutToast = "notifyVC"
-    
     /**
      Handles additional initialization.
     */

@@ -22,12 +22,7 @@ class ToastMessageView: UIView{
     private let toastLabelAlpha: CGFloat = 1.0
     private let nibName = "ToastMessageView"
     private let offset = CGFloat(75)
-    
-    private let showToastNotificationName = "showToast"
-    
-    private let keyForMessage = "message"
-    private let keyForController = "controller"
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
