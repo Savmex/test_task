@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 /**
-A custom view for displaying toast message.
+A custom view appearing on screen with it's message.
  
 Loads it's view from corresponding nib file.
  */
@@ -47,7 +47,7 @@ class ToastMessageView: UIView{
     }
     
     /**
-     Displays toast message with recieved text on recieved ViewController.
+     Displays toast message for a short period of time.
      - parameters:
         - message: error message
         - viewController: controller for displaying toast message

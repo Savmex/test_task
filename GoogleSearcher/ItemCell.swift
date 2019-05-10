@@ -1,12 +1,15 @@
 import UIKit
 
 /**
- Custom cell for displaying FetchedItem. 
+ Custom cell for displaying Item with data: url and title.
 */
 
-class ResultCell: UITableViewCell {
+class ItemCell: UITableViewCell {
 
-    var item: FetchedItem?{
+    /**
+     Item with data for displaying in labels.
+    */
+    var item: Item?{
         didSet{
             labelForTitle.text = item?.title
             labelForLink.text = item?.url
@@ -14,13 +17,13 @@ class ResultCell: UITableViewCell {
     }
     
     /**
-     Label for displaying title of fetched result
+     Label for displaying item's title.
     */
     
     @IBOutlet weak var labelForTitle: UILabel!
     
     /**
-     Label for displaying url of fetched result
+     Label for displaying item's url.
      */
     @IBOutlet weak var labelForLink: UILabel!
     

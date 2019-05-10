@@ -79,12 +79,17 @@ class InputField: UIView, UITextFieldDelegate{
      Returns text from input field.
     */
     
-    func returnText() -> String? {
-        if textField.text == ""{
-            return nil
+    func returnText() throws -> String {
+        if let text = textField.text{
+            if text != ""{
+                return text
+            }
+            else{
+                throw DataHandlerDataSourceErrors.noSearchParameter
+            }
         }
         else{
-            return textField.text
+            throw DataHandlerDataSourceErrors.noSearchParameter
         }
     }
     

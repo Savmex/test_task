@@ -6,8 +6,10 @@ A methods adopted by the object you use to provide parameters for DataHandler ob
  */
 
 protocol DataHandlerDataSource: class {
+    
     /**
      Asks the delegate to return search parameter.
     */
-    func searchParemeter(_ forDataHandler: DataHandler) -> String?
+    
+    func searchParemeter(_ forDataHandler: DataHandler) throws -> String
 }

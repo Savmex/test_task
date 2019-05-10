@@ -1,15 +1,15 @@
 import UIKit
 
 /**
- A view that presents data using rows arranged in a single column. Displays rows of type: ResultCell.
+ A view that presents data using rows arranged in a single column. Displays a list of data items of type Item in ItemCells.
  
  Loads it's view from corresponding nib file.
  */
 
 class ResultsTableView: UITableView {
     
-    private let cellIdentifier = "resultCell"
-    private let cellNibName = "ResultCell"
+    private let cellIdentifier = "itemCell"
+    private let cellNibName = "ItemCell"
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)

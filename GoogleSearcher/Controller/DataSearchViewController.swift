@@ -44,8 +44,11 @@ class DataSearchViewController: UIViewController, DataHandlerDelegate, DataHandl
         initComponents()
     }
     
-    func searchParemeter(_ forDataHandler: DataHandler) -> String? {
-        return inputField.returnText()
+    func searchParemeter(_ forDataHandler: DataHandler) throws -> String {
+        do{
+            let text = try inputField.returnText()
+            return text
+        }
     }
     
     func finishedLoading(_ dataHandler: DataHandler) {

@@ -1,7 +1,7 @@
 import UIKit
 
 /**
- Custom view including progress view that depicts the progress of a task over time
+ Custom view including progress view that depicts the progress of a task over time.
  
  Loads it's view from corresponding nib file.
  */

@@ -2,28 +2,42 @@ import Foundation
 import UIKit
 
 /**
-Provides interface for data loading.
+Provides interface for data loading with custom search URL.
  */
 
 class DataServer{
     
-    private let searchURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBsnPhX_EwlimkglxKpjJe99lHBydcHuDs&cx=012395726208297425069:_np83nffj40&q="
+    private let customEnginePrefix = "&cx="
+    private let searchQuery = "&q="
+    
+    init(){
+        searchURL = String()
+    }
+    
+    init(httpRequest: String, apiKey: String, searchEngine: String){
+        self.searchURL = httpRequest + apiKey + customEnginePrefix + searchEngine + searchQuery
+    }
+    
+    private let searchURL: String
     
     /**
      Returns loaded data.
-     
+     Can throw an exception if data loading fails.
      - parameters:
         - parameter: search criterion.
     */
     
-    func searchRequest(parameter: String) -> Data? {
-        let urlAdress = self.searchURL + parameter
-        let requestURL = URL(string: urlAdress)
-        var data: Data?
-        if let url = requestURL{
-            data = try? Data(contentsOf: url)
+    func searchRequest(parameter: String) throws -> Data {
+        let urlAdress =  searchURL + parameter
+        if let requestURl = URL(string: urlAdress){
+            do{
+                let data = try Data(contentsOf: requestURl)
+                return data
+            }
         }
-        return data
+        else{
+            throw DataServerErrors.wrongURL
+        }
     }
 
 }
