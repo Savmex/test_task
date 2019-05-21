@@ -19,4 +19,7 @@ protocol DataHandlerDelegate: class {
      Called when any data loading error occured.
     */
     func errorOccured(_ dataHandler: DataHandler, errorText: String)
+    /**
+    */
+    func rowWasSelected(_ dataHandler: DataHandler, item: Item)
 }

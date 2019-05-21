@@ -35,23 +35,8 @@ class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableView
             dataServer = DataServer(httpRequest: reqestURL!, apiKey: apiKey!, searchEngine: searchEngine!)
             maxLinesNumber = try fileManager!.getMaxLinesNumber()
         }
-        catch LoadingFromFileErrors.noFileInDirectory{
-            reportAboutError(text: "\(LoadingFromFileErrors.noFileInDirectory)")
-        }
-        catch LoadingFromFileErrors.noHttpGetRequestURL{
-            reportAboutError(text: "\(LoadingFromFileErrors.noHttpGetRequestURL)")
-        }
-        catch LoadingFromFileErrors.noAPIkey{
-            reportAboutError(text: "\(LoadingFromFileErrors.noAPIkey)")
-        }
-        catch LoadingFromFileErrors.noSearchEngine{
-            reportAboutError(text: "\(LoadingFromFileErrors.noSearchEngine)")
-        }
-        catch LoadingFromFileErrors.noMaxLineNumber{
-            reportAboutError(text: "\(LoadingFromFileErrors.noMaxLineNumber)")
-        }
         catch let error{
-            reportAboutError(text: error.localizedDescription)
+            handleError(error: error)
         }
     }
 
@@ -99,6 +84,13 @@ class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! ItemCell
+        cell.isSelected = false
+        let item = cell.item!
+        delegate?.rowWasSelected(self, item: item)
+    }
+    
     private func unbind() {
         delegate?.startedLoading(self)
         do{
@@ -106,13 +98,53 @@ class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableView
                 initDataLoading(parameter: text)
             }
         }
-        catch DataHandlerDataSourceErrors.noSearchParameter{
-            reportAboutError(text: "\(DataHandlerDataSourceErrors.noSearchParameter)")
+        catch let error{
+            handleError(error: error)
             bind()
         }
-        catch let error{
-            reportAboutError(text: error.localizedDescription)
-            bind()
+    }
+    
+    private func handleError(error: Error) {
+        if let convertingError = error as? DataConvertingErrors {
+            switch convertingError {
+                case DataConvertingErrors.errorGettingItems:
+                    self.reportAboutError(text: "\(DataConvertingErrors.errorGettingItems)")
+                case DataConvertingErrors.errorGettingItemTitle:
+                    self.reportAboutError(text: "\(DataConvertingErrors.errorGettingItemTitle)")
+                case DataConvertingErrors.errorGettingItemURL:
+                    self.reportAboutError(text: "\(DataConvertingErrors.errorGettingItemURL)")
+            }
+        }
+        if let loadingFromFileError = error as? LoadingFromFileErrors {
+            switch loadingFromFileError {
+            case LoadingFromFileErrors.noAPIkey:
+                self.reportAboutError(text: "\(LoadingFromFileErrors.noAPIkey)")
+            case LoadingFromFileErrors.noFileInDirectory:
+                self.reportAboutError(text: "\(LoadingFromFileErrors.noFileInDirectory)")
+            case LoadingFromFileErrors.noHttpGetRequestURL:
+                self.reportAboutError(text: "\(LoadingFromFileErrors.noHttpGetRequestURL)")
+            case LoadingFromFileErrors.noMaxLineNumber:
+                self.reportAboutError(text: "\(LoadingFromFileErrors.noMaxLineNumber)")
+            case LoadingFromFileErrors.noSearchEngine:
+                self.reportAboutError(text: "\(LoadingFromFileErrors.noSearchEngine)")
+            case LoadingFromFileErrors.wrongMaxLinesNumber:
+                self.reportAboutError(text: "\(LoadingFromFileErrors.wrongMaxLinesNumber)")
+            }
+        }
+        if let serverError = error as? DataServerErrors {
+            switch serverError{
+            case DataServerErrors.wrongURL:
+                self.reportAboutError(text: "\(DataServerErrors.wrongURL)")
+            }
+        }
+        if let dataSourceError = error as? DataHandlerDataSourceErrors {
+            switch dataSourceError{
+            case DataHandlerDataSourceErrors.noSearchParameter:
+                self.reportAboutError(text: "\(DataHandlerDataSourceErrors.noSearchParameter)")
+            }
+        }
+        else{
+            self.reportAboutError(text: error.localizedDescription)
         }
     }
  
@@ -122,20 +154,8 @@ class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableView
                 let data = try self.dataServer.searchRequest(parameter: parameter)
                 self.results = try self.dataConverter.convertData(data: data)
             }
-            catch DataConvertingErrors.errorGettingItems{
-                self.reportAboutError(text: "\(DataConvertingErrors.errorGettingItems)")
-            }
-            catch DataConvertingErrors.errorGettingItemTitle{
-                self.reportAboutError(text: "\(DataConvertingErrors.errorGettingItemTitle)")
-            }
-            catch DataConvertingErrors.errorGettingItemURL {
-                self.reportAboutError(text: "\(DataConvertingErrors.errorGettingItemURL)")
-            }
-            catch DataServerErrors.wrongURL{
-                self.reportAboutError(text: "\(DataServerErrors.wrongURL)")
-            }
             catch let error{
-                self.reportAboutError(text: error.localizedDescription)
+                self.handleError(error: error)
             }
         }
         operation.completionBlock = {

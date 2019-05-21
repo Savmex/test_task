@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N5n-9V-sza">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Wc-ev-y3Z">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <deployment version="4352" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="XHl-z8-qGm">
+            <objects>
+                <navigationController id="9Wc-ev-y3Z" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ySN-Ie-kNk">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="N5n-9V-sza" kind="relationship" relationship="rootViewController" id="c6l-D7-kEE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hN5-q4-HHl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1089" y="99"/>
+        </scene>
         <!--Data Search View Controller-->
         <scene sceneID="WF3-02-98i">
             <objects>
@@ -19,60 +35,88 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RhV-4g-hex" customClass="InputField" customModule="GoogleSearcher" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="btr-Wb-NAR"/>
-                                    <constraint firstAttribute="height" constant="40" id="oGb-D2-9fr"/>
+                                    <constraint firstAttribute="width" constant="375" id="73n-tt-Sr0"/>
+                                    <constraint firstAttribute="height" constant="40" id="IMM-im-nW1"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caE-Kr-tFE" customClass="ButtonView" customModule="GoogleSearcher" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="60" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="104" width="375" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="XAz-XB-Zct"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1c-6A-7ge" customClass="LoadingProgressView" customModule="GoogleSearcher" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100" width="375" height="10"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="10" id="ASc-8w-Xc0"/>
+                                    <constraint firstAttribute="height" constant="40" id="0H1-QX-bnX"/>
+                                    <constraint firstAttribute="width" constant="375" id="f4e-Vw-AAN"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PZd-Yg-8ej" customClass="ResultsTableView" customModule="GoogleSearcher" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="110" width="375" height="557"/>
+                                <rect key="frame" x="0.0" y="154" width="375" height="513"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1c-6A-7ge" customClass="LoadingProgressView" customModule="GoogleSearcher" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="144" width="375" height="10"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="O6F-Xa-eH4"/>
+                                    <constraint firstAttribute="height" constant="10" id="w9B-ym-GI4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="RhV-4g-hex" firstAttribute="top" secondItem="XrX-1Z-1Ea" secondAttribute="top" id="5G2-jN-TF7"/>
-                            <constraint firstItem="RhV-4g-hex" firstAttribute="leading" secondItem="XrX-1Z-1Ea" secondAttribute="leading" id="66V-NS-sGQ"/>
-                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="trailing" secondItem="XrX-1Z-1Ea" secondAttribute="trailing" id="Blw-vw-db0"/>
-                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="top" secondItem="V1c-6A-7ge" secondAttribute="bottom" id="FoZ-5a-x2C"/>
-                            <constraint firstItem="caE-Kr-tFE" firstAttribute="trailing" secondItem="XrX-1Z-1Ea" secondAttribute="trailing" id="Q91-Uz-48R"/>
-                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="leading" secondItem="XrX-1Z-1Ea" secondAttribute="leading" id="UYE-8N-zAc"/>
-                            <constraint firstItem="V1c-6A-7ge" firstAttribute="leading" secondItem="XrX-1Z-1Ea" secondAttribute="leading" id="XlX-MO-2Pl"/>
-                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="bottom" secondItem="XrX-1Z-1Ea" secondAttribute="bottom" id="ZbR-ph-rD0"/>
-                            <constraint firstItem="caE-Kr-tFE" firstAttribute="leading" secondItem="XrX-1Z-1Ea" secondAttribute="leading" id="g6T-Ib-d1O"/>
-                            <constraint firstItem="RhV-4g-hex" firstAttribute="trailing" secondItem="XrX-1Z-1Ea" secondAttribute="trailing" id="gCH-Ty-cnB"/>
-                            <constraint firstItem="V1c-6A-7ge" firstAttribute="top" secondItem="caE-Kr-tFE" secondAttribute="bottom" id="is6-Bk-MOb"/>
-                            <constraint firstItem="caE-Kr-tFE" firstAttribute="top" secondItem="RhV-4g-hex" secondAttribute="bottom" id="k0e-Ji-i0f"/>
-                            <constraint firstItem="V1c-6A-7ge" firstAttribute="trailing" secondItem="XrX-1Z-1Ea" secondAttribute="trailing" id="ufP-sg-iPx"/>
+                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="bottom" secondItem="XrX-1Z-1Ea" secondAttribute="bottom" id="3K2-KR-XEe"/>
+                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="top" secondItem="V1c-6A-7ge" secondAttribute="bottom" id="7Fj-vu-zD3"/>
+                            <constraint firstItem="caE-Kr-tFE" firstAttribute="leading" secondItem="XrX-1Z-1Ea" secondAttribute="leading" id="EaR-dN-qFD"/>
+                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="leading" secondItem="XrX-1Z-1Ea" secondAttribute="leading" id="Fnu-ST-zMh"/>
+                            <constraint firstItem="caE-Kr-tFE" firstAttribute="trailing" secondItem="XrX-1Z-1Ea" secondAttribute="trailing" id="H7k-ii-bb3"/>
+                            <constraint firstItem="caE-Kr-tFE" firstAttribute="top" secondItem="RhV-4g-hex" secondAttribute="bottom" id="KPm-3b-Ayx"/>
+                            <constraint firstItem="RhV-4g-hex" firstAttribute="top" secondItem="XrX-1Z-1Ea" secondAttribute="top" id="LUA-7j-xC0"/>
+                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="trailing" secondItem="XrX-1Z-1Ea" secondAttribute="trailing" id="MIg-wL-ctb"/>
+                            <constraint firstItem="V1c-6A-7ge" firstAttribute="trailing" secondItem="XrX-1Z-1Ea" secondAttribute="trailing" id="SQC-GY-dkp"/>
+                            <constraint firstItem="RhV-4g-hex" firstAttribute="leading" secondItem="XrX-1Z-1Ea" secondAttribute="leading" id="b9l-EU-oty"/>
+                            <constraint firstItem="V1c-6A-7ge" firstAttribute="top" secondItem="caE-Kr-tFE" secondAttribute="bottom" id="f03-DB-qVC"/>
+                            <constraint firstItem="caE-Kr-tFE" firstAttribute="top" secondItem="RhV-4g-hex" secondAttribute="bottom" id="gIc-MZ-G8T"/>
+                            <constraint firstItem="RhV-4g-hex" firstAttribute="trailing" secondItem="XrX-1Z-1Ea" secondAttribute="trailing" id="nDr-3a-jpe"/>
+                            <constraint firstItem="V1c-6A-7ge" firstAttribute="top" secondItem="caE-Kr-tFE" secondAttribute="bottom" id="qbf-dI-U1m"/>
+                            <constraint firstItem="V1c-6A-7ge" firstAttribute="leading" secondItem="XrX-1Z-1Ea" secondAttribute="leading" id="soV-L2-UVE"/>
+                            <constraint firstItem="PZd-Yg-8ej" firstAttribute="top" secondItem="V1c-6A-7ge" secondAttribute="bottom" id="w0x-8b-OJ3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XrX-1Z-1Ea"/>
                     </view>
+                    <navigationItem key="navigationItem" id="pzf-PA-b5l"/>
                     <connections>
                         <outlet property="buttonView" destination="caE-Kr-tFE" id="loN-bj-QZd"/>
                         <outlet property="inputField" destination="RhV-4g-hex" id="klO-56-wpy"/>
                         <outlet property="loadingProgressView" destination="V1c-6A-7ge" id="58E-CN-cbb"/>
                         <outlet property="resultsTableView" destination="PZd-Yg-8ej" id="bBC-zt-14A"/>
+                        <segue destination="972-5w-Qnf" kind="show" identifier="webPage" id="rVz-mT-Afg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ax-Ne-FOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="244" y="99.400299850074973"/>
+        </scene>
+        <!--Web Page View Controller-->
+        <scene sceneID="X46-Pd-wrd">
+            <objects>
+                <viewController id="972-5w-Qnf" customClass="WebPageViewController" customModule="GoogleSearcher" customModuleProvider="target" sceneMemberID="viewController">
+                    <wkWebView key="view" contentMode="scaleToFill" id="8mu-3D-n7q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <wkWebViewConfiguration key="configuration">
+                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                            <wkPreferences key="preferences"/>
+                        </wkWebViewConfiguration>
+                    </wkWebView>
+                    <connections>
+                        <outlet property="webView" destination="8mu-3D-n7q" id="8Pr-gl-hYj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ufh-HH-Wx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1120.8" y="98.50074962518741"/>
         </scene>
     </scenes>
 </document>

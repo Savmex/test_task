@@ -23,7 +23,7 @@ class ToastMessageView: UIView{
     private let nibName = "ToastMessageView"
     private let offset = CGFloat(75)
 
-    override init(frame: CGRect) {
+    override init(frame: CGRect = CGRect.zero) {
         super.init(frame: frame)
         setUp()
     }

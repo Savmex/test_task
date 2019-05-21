@@ -24,6 +24,8 @@ class DataSearchViewController: UIViewController, DataHandlerDelegate, DataHandl
     
     @IBOutlet weak var resultsTableView: ResultsTableView!
     
+    private var webPageSegueIdentifier = "webPage"
+    
     private let progrValueForLoadingInit: Float = 0.3
     private let progrValueForFinishLoading: Float = 1
     
@@ -67,6 +69,18 @@ class DataSearchViewController: UIViewController, DataHandlerDelegate, DataHandl
         loadingProgressView.setProgress(value: progrValueForLoadingInit)
         loadingProgressView.isProgressViewHidden(false)
         inputField.resignFirstResponder()
+    }
+    
+    func rowWasSelected(_ dataHandler: DataHandler, item: Item) {
+        performSegue(withIdentifier: webPageSegueIdentifier, sender: item)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == webPageSegueIdentifier else { return }
+        guard let webPageVC = segue.destination as? WebPageViewController else { return }
+        guard let item = sender as? Item else { return }
+        webPageVC.setTitle(title: item.title!)
+        webPageVC.setURL(url: item.url!)
     }
     
     private func initComponents(){

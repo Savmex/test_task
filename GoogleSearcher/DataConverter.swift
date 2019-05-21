@@ -9,7 +9,7 @@ import CoreData
 class DataConverter{
     
     private let keyForItems = "items"
-    private let keyForURL = "formattedUrl"
+    private let keyForURL = "link"
     private let keyForTitle = "title"
     
     private let coreDataStack = CoreDataStack()
