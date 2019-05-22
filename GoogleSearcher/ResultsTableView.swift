@@ -8,8 +8,8 @@ import UIKit
 
 class ResultsTableView: UITableView {
     
-    private let cellIdentifier = "itemCell"
-    private let cellNibName = "ItemCell"
+    private let cellIdentifier = "webPageInfoCell"
+    private let cellNibName = "WebPageInfoCell"
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)

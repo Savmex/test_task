@@ -1,0 +1,4 @@
+maxLinesNumber=10
+httpGetRequest=https://www.googleapis.com/customsearch/v1?key
+searchEngine=012395726208297425069:_np83nffj40
+APIkey=AIzaSyBsnPhX_EwlimkglxKpjJe99lHBydcHuDs

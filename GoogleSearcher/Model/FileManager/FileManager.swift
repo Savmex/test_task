@@ -7,21 +7,24 @@ import Foundation
 
 class FileManager {
     
-    private let fileName = "application"
-    private let fileExtansion = "plist"
+    private let fileName = "application.properties"
+    private let fileExtansion = "txt"
     private let keyForAPIkey = "APIkey"
     private let keyForEngine = "searchEngine"
     private let keyForHttpGetRequest = "httpGetRequest"
     private let keyForMaxLinesNumber = "maxLinesNumber"
-    private let decoder = PropertyListDecoder()
-    private let fileDataType = Dictionary<String, String>.self
+    private let pairsSeparator = "\n"
+    private let keyAndValueSeparator = "="
+    private let keyIndex = 0
+    private let valueIndex = 1
     private var fileContent =  Dictionary<String, String>()
+    private let fileDataEncoding = String.Encoding.utf8
     
     init() throws {
         do{
             let path = try getFilePath()
             let data = try loadDataFromFile(path: path)
-            fileContent = try decodeData(data: data)
+            fileContent = try parseData(data: data)
         }
     }
     
@@ -34,17 +37,26 @@ class FileManager {
         }
     }
     
-    private func loadDataFromFile(path: URL) throws -> Data {
+    private func loadDataFromFile(path: URL) throws -> String {
         do{
-            let data = try Data(contentsOf: path)
+            let data = try String(contentsOf: path, encoding: fileDataEncoding)
             return data
         }
     }
     
-    private func decodeData(data: Data) throws -> Dictionary<String, String> {
+    private func parseData(data: String) throws -> Dictionary<String, String> {
         do{
-            let content = try decoder.decode(fileDataType, from: data)
-            return content
+            var dictionary = Dictionary<String, String>()
+            let keyValuesPairs = data.components(separatedBy: pairsSeparator)
+            print(keyValuesPairs)
+            for pair in keyValuesPairs where pair != "" {
+                let keyAndValue = pair.components(separatedBy: keyAndValueSeparator)
+                guard keyAndValue.count == 2 else { throw LoadingFromFileErrors.wrongFileDataStructure }
+                let key = keyAndValue[keyIndex]
+                let value = keyAndValue[valueIndex]
+                dictionary[key] = value
+            }
+            return dictionary
         }
     }
     

@@ -11,7 +11,7 @@ protocol DataHandlerDelegate: class {
     */
     func finishedLoading(_ dataHandler: DataHandler)
     /**
-     At the beginning of data loading.
+     Called at the beginning of data loading.
     */
     func startedLoading(_ dataHandler: DataHandler)
     
@@ -20,6 +20,11 @@ protocol DataHandlerDelegate: class {
     */
     func errorOccured(_ dataHandler: DataHandler, errorText: String)
     /**
+     Tells delegate to perform segue to push new ViewController instance in response to iteractions with UI.
+     - parameters:
+        - dataHandler: DataHandler instance
+        - item: data for new VC
+        - segueIdentifier: identifier of segue to perform
     */
-    func rowWasSelected(_ dataHandler: DataHandler, item: Item)
+    func shouldPerformSegue(_ dataHandler: DataHandler, with item: WebPageInfoItem, with segueIdentifier: String)
 }

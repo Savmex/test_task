@@ -7,7 +7,7 @@ import UIKit
 
 class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableViewDelegate, UITableViewDataSource{
     
-    private let cellIdentifier = "itemCell"
+    private let cellIdentifier = "webPageInfoCell"
 
     private var operationQueue = OperationQueue()
     private var dataServer = DataServer()
@@ -16,10 +16,12 @@ class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableView
     
     private var maxLinesNumber: Int = 0
     
+    private var webPageSegueIdentifier = "webPage"
+    
     weak var delegate: DataHandlerDelegate?
     weak var dataSource: DataHandlerDataSource?
     
-    private var results : [Item]?
+    private var results : [WebPageInfoItem]?
     
     override init() {
         super.init()
@@ -77,7 +79,7 @@ class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableView
      */
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! WebPageInfoCell
         if let item = results?[indexPath.item]{
             cell.item = item
         }
@@ -85,12 +87,12 @@ class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! ItemCell
+        let cell = tableView.cellForRow(at: indexPath) as! WebPageInfoCell
         cell.isSelected = false
         let item = cell.item!
-        delegate?.rowWasSelected(self, item: item)
+        delegate?.shouldPerformSegue(self, with: item, with: webPageSegueIdentifier)
     }
-    
+
     private func unbind() {
         delegate?.startedLoading(self)
         do{
@@ -129,6 +131,8 @@ class DataHandler: NSObject, InputFieldDelegate, ButtonViewDelegate, UITableView
                 self.reportAboutError(text: "\(LoadingFromFileErrors.noSearchEngine)")
             case LoadingFromFileErrors.wrongMaxLinesNumber:
                 self.reportAboutError(text: "\(LoadingFromFileErrors.wrongMaxLinesNumber)")
+            case LoadingFromFileErrors.wrongFileDataStructure:
+                self.reportAboutError(text: "\(LoadingFromFileErrors.wrongFileDataStructure)")
             }
         }
         if let serverError = error as? DataServerErrors {

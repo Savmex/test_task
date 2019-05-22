@@ -4,12 +4,12 @@ import UIKit
  Custom cell for displaying Item with data: url and title.
 */
 
-class ItemCell: UITableViewCell {
+class WebPageInfoCell: UITableViewCell {
 
     /**
      Item with data for displaying in labels.
     */
-    var item: Item?{
+    var item: WebPageInfoItem?{
         didSet{
             labelForTitle.text = item?.title
             labelForLink.text = item?.url

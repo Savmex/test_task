@@ -101,17 +101,38 @@
         <scene sceneID="X46-Pd-wrd">
             <objects>
                 <viewController id="972-5w-Qnf" customClass="WebPageViewController" customModule="GoogleSearcher" customModuleProvider="target" sceneMemberID="viewController">
-                    <wkWebView key="view" contentMode="scaleToFill" id="8mu-3D-n7q">
+                    <view key="view" contentMode="scaleToFill" id="pbY-Ng-P0S">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <wkWebViewConfiguration key="configuration">
-                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                            <wkPreferences key="preferences"/>
-                        </wkWebViewConfiguration>
-                    </wkWebView>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HzG-2t-lrO" customClass="WebPageView" customModule="GoogleSearcher" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="7Sv-Fe-Kpl"/>
+                                    <constraint firstAttribute="height" constant="603" id="jST-UC-mz6"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7JK-AZ-fkW">
+                                <rect key="frame" x="177" y="355" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7JK-AZ-fkW" firstAttribute="centerY" secondItem="J74-aD-lm1" secondAttribute="centerY" id="ClL-ye-RAq"/>
+                            <constraint firstItem="HzG-2t-lrO" firstAttribute="trailing" secondItem="J74-aD-lm1" secondAttribute="trailing" id="L4T-35-zzF"/>
+                            <constraint firstItem="HzG-2t-lrO" firstAttribute="centerX" secondItem="J74-aD-lm1" secondAttribute="centerX" id="ON0-hO-RpN"/>
+                            <constraint firstItem="HzG-2t-lrO" firstAttribute="centerY" secondItem="J74-aD-lm1" secondAttribute="centerY" id="V6i-HD-O1P"/>
+                            <constraint firstItem="HzG-2t-lrO" firstAttribute="leading" secondItem="J74-aD-lm1" secondAttribute="leading" id="gKd-6F-fAb"/>
+                            <constraint firstItem="HzG-2t-lrO" firstAttribute="bottom" secondItem="J74-aD-lm1" secondAttribute="bottom" id="ird-EF-hBm"/>
+                            <constraint firstItem="HzG-2t-lrO" firstAttribute="top" secondItem="J74-aD-lm1" secondAttribute="top" id="lsv-g0-vZB"/>
+                            <constraint firstItem="7JK-AZ-fkW" firstAttribute="centerX" secondItem="J74-aD-lm1" secondAttribute="centerX" id="wFY-5l-Pdb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="J74-aD-lm1"/>
+                    </view>
                     <connections>
-                        <outlet property="webView" destination="8mu-3D-n7q" id="8Pr-gl-hYj"/>
+                        <outlet property="activityIndicator" destination="7JK-AZ-fkW" id="LsM-CQ-ZTi"/>
+                        <outlet property="webView" destination="HzG-2t-lrO" id="X50-6N-3il"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ufh-HH-Wx0" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -4,6 +4,7 @@ import CoreData
 /**
  Provides interface for working with CoreData.
 */
+
 class CoreDataStack{
     
     /**

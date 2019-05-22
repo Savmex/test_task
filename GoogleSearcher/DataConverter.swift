@@ -21,7 +21,7 @@ class DataConverter{
         - data: binary data to convert.
     */
     
-    func convertData(data: Data) throws -> [Item] {
+    func convertData(data: Data) throws -> [WebPageInfoItem] {
         do{
             let json = try JSONSerialization.jsonObject(with: data, options:  JSONSerialization.ReadingOptions())
             let items = try convertToItems(jsonData: json)
@@ -29,11 +29,11 @@ class DataConverter{
         }
     }
     
-    private func convertToItems(jsonData: Any) throws -> [Item] {
+    private func convertToItems(jsonData: Any) throws -> [WebPageInfoItem] {
         do {
             let data = jsonData as? Dictionary<String, Any>
             if let items = data?[keyForItems] as? [Dictionary<String, Any>]{
-                var results = [Item]()
+                var results = [WebPageInfoItem]()
                 for item in items{
                     let newItem = try convertItem(data: item)
                     results.append(newItem)
@@ -46,8 +46,8 @@ class DataConverter{
         }
     }
     
-    private func convertItem(data: Dictionary<String, Any>) throws -> Item{
-        let newItem = Item(context: coreDataStack.getContext())
+    private func convertItem(data: Dictionary<String, Any>) throws -> WebPageInfoItem{
+        let newItem = WebPageInfoItem(context: coreDataStack.getContext())
         if let url = data[keyForURL] as? String{
             newItem.url = url
         }

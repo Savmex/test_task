@@ -3,6 +3,7 @@ import Foundation
 /**
  Contains errors can be thrown by DataConvetring due to some errors.
 */
+
 enum DataConvertingErrors: Error {
     /**
      Thrown when items fetching fails.
